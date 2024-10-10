@@ -1136,9 +1136,9 @@ boolean argument: either `1`, `yes`, or `true` to enable, or `0`, `no`,
     certificate must be present and the build will fail if we don't
     detect any verity partitions in the disk image produced by
     systemd-repart. If disabled, verity partitions will be excluded from
-    disk images produced by systemd-repart even if the partition
-    definitions contain verity partitions. If set to `auto`, the verity
-    key and certificate will be passed to systemd-repart if available,
+    the extension images produced by systemd-repart. If set to `auto` and
+    a verity key and certificate are present, mkosi will pass them to systemd-repart
+    and expects the generated disk image to contain verity partitions,
     but the build won't fail if no verity partitions are found in the
     disk image produced by systemd-repart.
 
@@ -1282,10 +1282,9 @@ boolean argument: either `1`, `yes`, or `true` to enable, or `0`, `no`,
     | `zypper`                | ✓      |        | ✓      | ✓    | ✓      | ✓    |          |
 
 `ToolsTreeDistribution=`, `--tools-tree-distribution=`
-:   Set the distribution to use for the default tools tree. By default,
-    the same distribution as the image that's being built is used, except
-    for CentOS and Ubuntu images, in which case Fedora and Debian are used
-    respectively.
+:   Set the distribution to use for the default tools tree.
+    Defaults to the distribution of the host
+    or `custom` if the distribution of the host is not a supported distribution.
 
 `ToolsTreeRelease=`, `--tools-tree-release=`
 :   Set the distribution release to use for the default tools tree. By
@@ -1586,6 +1585,10 @@ boolean argument: either `1`, `yes`, or `true` to enable, or `0`, `no`,
 :   When used with the `qemu` verb, this option specifies whether to
     attach the image to the virtual machine as a CD-ROM device. Takes a
     boolean. Defaults to `no`.
+
+`QemuRemovable=`, `--qemu-removable=`
+:   When used with the `qemu` verb, this option specifies whether to attach the image to the virtual machine
+    as a removable device. Takes a boolean. Defaults to `no`.
 
 `QemuFirmware=`, `--qemu-firmware=`
 :   When used with the `qemu` verb, this option specifies which firmware
